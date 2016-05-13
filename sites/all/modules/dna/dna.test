@@ -4,7 +4,7 @@ class DnaTestCase extends DrupalWebTestCase
     public static function getInfo() {
         return array(
             'name' => 'DNA',
-            'description' => 'Translates a DNA sequence into its nucleotide counterpart',
+            'description' => 'Test that nucleotide translates into its nucleotide counterpart',
             'group' => 'Custom',
         );
     }
@@ -14,22 +14,30 @@ class DnaTestCase extends DrupalWebTestCase
     }
 
     public function testDna() {
-        $this->drupalGet('dna');
-        $this->assertText('Enter a helix!', 'This page content is present.');
+        $edit = array();
+        $edit['dna_input'] = 'GATTACA';
+        $this->drupalPost('/dna', $edit, t('DOUBLE HELIX ME!'));
+        $this->assertText('ctaatgt', t('Test passed!'));
     }
 }
-//     public function testdna() {
-//         $this->drupalGet('')
-//         //English description
-//         $description = '"ATC" should return "tag".';
+
+// class DnaTwoTestCase extends DrupalUnitTestCase
+// {
+//     public static function getInfo() {
+//         return array(
+//             'name' => 'DNA Test',
+//             'description' => 'Translates a DNA sequence into its nucleotide counterpart',
+//             'group' => 'Custom',
+//         );
+//     }
 //
-//         //Arrange
-//         $input = 'ATC';
+//     function testDna() {
+//         $description = '"CAT" should return "gta".';
 //
-//         //Act
+//         $input = 'CAT';
+//
 //         $result = dna($input);
 //
-//         //Assert
-//         $this->assertEqual($result, 'tag', '"ATC" resolves to "tag".');
+//         $this->assertEqual($result, 'gta', '"CAT" resolves to "gta".');
 //     }
 // }
