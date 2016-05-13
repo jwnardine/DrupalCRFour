@@ -3,3 +3,5 @@ description = Translates a DNA sequence into its nucleotide counterpart
 package = Custom
 core = 7.x
 files[] = dna.module
+files[] = dna.test
+dependencies[] = simpletest

@@ -1,0 +1,35 @@
+<?php
+class DnaTestCase extends DrupalWebTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA',
+            'description' => 'Translates a DNA sequence into its nucleotide counterpart',
+            'group' => 'Custom',
+        );
+    }
+
+    public function setUp() {
+        parent::setUp(array('dna'));
+    }
+
+    public function testDna() {
+        $this->drupalGet('dna');
+        $this->assertText('Enter a helix!', 'This page content is present.');
+    }
+}
+//     public function testdna() {
+//         $this->drupalGet('')
+//         //English description
+//         $description = '"ATC" should return "tag".';
+//
+//         //Arrange
+//         $input = 'ATC';
+//
+//         //Act
+//         $result = dna($input);
+//
+//         //Assert
+//         $this->assertEqual($result, 'tag', '"ATC" resolves to "tag".');
+//     }
+// }
