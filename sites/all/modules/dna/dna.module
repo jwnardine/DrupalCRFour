@@ -1,0 +1,65 @@
+<?php
+
+function dna_menu() {
+    $items = array();
+    $items['dna'] = array(
+        'title' => 'DNA translator',
+        'type' => MENU_NORMAL_ITEM,
+        'access callback' => TRUE,
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dna_form'),
+    );
+    $items['dna_success'] = array(
+        'title' => 'DNA translator results',
+        'type' => MENU_CALLBACK,
+        'access callback' => TRUE,
+        'page callback' => 'dna_translate_success',
+    );
+    return $items;
+}
+
+function dna_form() {
+    $form = array();
+    $form['dna_input'] = array(
+        '#title' => 'First half of DNA Helix',
+        '#type' => 'textfield',
+        '#description' => t('Enter a helix! Only use characters A, T, G, or C'),
+        '#element_validate' => array('element_validate_atgc'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'DOUBLE HELIX ME!',
+    );
+    return $form;
+}
+
+function element_validate_atgc($element) {
+    $dna_string = strtolower($element['#value']);
+    $dna_string_split = str_split($dna_string);
+    foreach ($dna_string_split as $value) {
+        if ($value != 'a' && $value != 't' && $value != 'g' && $value != 'c' ) {
+        form_set_error('dna_input', t('Please only use the characters A, T, G, or C!'));
+    }
+
+    // $dna_string = strtolower($element['#value']);
+    // $dna_string_split = str_split($dna_string);
+    // foreach ($dna_string_split as $value) {
+    //     if ($value != 'a' || $value != 't' $value != 'g' $value != 'c' ) {
+    //         form_set_error('dna_input', t('Please only use the characters A, T, G, or C!'));
+    //     }
+    // }
+}
+}
+
+function dna_form_submit($form, &$form_state) {
+    $dna_string = strtolower($form_state['values']['dna_input']);
+
+    $_SESSION['dna_input_output'] = $dna_string;
+    $form_state['redirect'] = 'dna_success';
+}
+
+function dna_translate_success() {
+    $results = $_SESSION['dna_input_output'];
+    return $results;
+}
