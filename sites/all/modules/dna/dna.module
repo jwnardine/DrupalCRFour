@@ -40,26 +40,58 @@ function element_validate_atgc($element) {
     foreach ($dna_string_split as $value) {
         if ($value != 'a' && $value != 't' && $value != 'g' && $value != 'c' ) {
         form_set_error('dna_input', t('Please only use the characters A, T, G, or C!'));
+        }
+    }
+}
+
+function dna_convert($input){
+    $dna_string = strtolower($input);
+    $dna_string_split = str_split($dna_string);
+    $output = "";
+
+    foreach($dna_string_split as $letter) {
+        if($letter === 'a') {
+                $output = $output . 't';
+            }
+        if ($letter === 't') {
+                $output = $output . 'a';
+            }
+        if ($letter === 'c') {
+                $output = $output . 'g';
+            }
+        if ($letter === 'g'){
+                $output = $output . 'c';
+            }
+        }
+
+        return $output;
     }
 
-    // $dna_string = strtolower($element['#value']);
-    // $dna_string_split = str_split($dna_string);
-    // foreach ($dna_string_split as $value) {
-    //     if ($value != 'a' || $value != 't' $value != 'g' $value != 'c' ) {
-    //         form_set_error('dna_input', t('Please only use the characters A, T, G, or C!'));
-    //     }
-    // }
-}
-}
-
 function dna_form_submit($form, &$form_state) {
-    $dna_string = strtolower($form_state['values']['dna_input']);
-
-    $_SESSION['dna_input_output'] = $dna_string;
+    $dna_input = $form_state['values']['dna_input'];
+    $result = dna_convert($dna_input);
+    // $dna_string = strtolower($form_state['values']['dna_input']);
+    // $dna_string_split = str_split($dna_string);
+    // $translate = str_replace($dna_string_split, 'B', 'a');
+    // foreach ($dna_string_split as $value) {
+    //     if ($value = 'a') {
+    //         $value = str_replace($value, 'a', 'B');
+    //     };
+    // };
+    $_SESSION['dna_input'] = $dna_input;
+    $_SESSION['dna_output'] = $result;
     $form_state['redirect'] = 'dna_success';
 }
 
+// function dna_form_submit($form, &$form_state) {
+//     $dna_string = strtolower($form_state['values']['dna_input']);
+//
+//     $_SESSION['dna_input_output'] = $dna_string;
+//     $form_state['redirect'] = 'dna_success';
+// }
+
 function dna_translate_success() {
-    $results = $_SESSION['dna_input_output'];
-    return $results;
+    $results = $_SESSION['dna_output'];
+    $inputted = $_SESSION['dna_input'];
+    return '<p>Your helix: ' . $inputted . '</p> <p>Your helix\'s partner: ' . $results . '</p>';
 }
