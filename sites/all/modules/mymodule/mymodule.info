@@ -1,0 +1,5 @@
+name = My Ajax 007 Node Loader
+description = Display 007 Articles with Ajax.
+package = Custom
+core = 7.x
+files[] = mymodule.module
