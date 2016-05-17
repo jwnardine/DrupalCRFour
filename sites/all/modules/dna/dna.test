@@ -21,23 +21,23 @@ class DnaTestCase extends DrupalWebTestCase
     }
 }
 
-// class DnaTwoTestCase extends DrupalUnitTestCase
-// {
-//     public static function getInfo() {
-//         return array(
-//             'name' => 'DNA Test',
-//             'description' => 'Translates a DNA sequence into its nucleotide counterpart',
-//             'group' => 'Custom',
-//         );
-//     }
-//
-//     function testDna() {
-//         $description = '"CAT" should return "gta".';
-//
-//         $input = 'CAT';
-//
-//         $result = dna($input);
-//
-//         $this->assertEqual($result, 'gta', '"CAT" resolves to "gta".');
-//     }
-// }
+class DnaTwoTestCase extends DrupalUnitTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Test',
+            'description' => 'Translates a DNA sequence into its nucleotide counterpart',
+            'group' => 'Custom',
+        );
+    }
+
+    function testDnaConvert() {
+        $description = '"CAT" should return "gta".';
+
+        $input = 'CAT';
+
+        $result = dna_convert($input);
+
+        $this->assertEqual($result, 'gta', '"CAT" resolves to "gta".');
+    }
+}
