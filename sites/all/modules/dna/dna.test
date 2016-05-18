@@ -21,6 +21,90 @@ class DnaTestCase extends DrupalWebTestCase
     }
 }
 
+class DnaATTestCase extends DrupalUnitTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Test',
+            'description' => 'Tests that A turns into t',
+            'group' => 'Custom',
+        );
+    }
+
+    function testDnaConvert() {
+        $description = '"A" should return "t".';
+
+        $input = 'A';
+
+        $result = dna_convert($input);
+
+        $this->assertEqual($result, 't', '"A" resolves to "t".');
+    }
+}
+
+class DnaTATestCase extends DrupalUnitTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Test',
+            'description' => 'Tests that T turns into a',
+            'group' => 'Custom',
+        );
+    }
+
+    function testDnaConvert() {
+        $description = '"T" should return "a".';
+
+        $input = 'T';
+
+        $result = dna_convert($input);
+
+        $this->assertEqual($result, 'a', '"T" resolves to "a".');
+    }
+}
+
+class DnaCGTestCase extends DrupalUnitTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Test',
+            'description' => 'Tests that C turns into g',
+            'group' => 'Custom',
+        );
+    }
+
+    function testDnaConvert() {
+        $description = '"C" should return "g".';
+
+        $input = 'C';
+
+        $result = dna_convert($input);
+
+        $this->assertEqual($result, 'g', '"C" resolves to "g".');
+    }
+}
+
+class DnaGCTestCase extends DrupalUnitTestCase
+{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Test',
+            'description' => 'Tests that G turns into c',
+            'group' => 'Custom',
+        );
+    }
+
+    function testDnaConvert() {
+        $description = '"G" should return "c".';
+
+        $input = 'G';
+
+        $result = dna_convert($input);
+
+        $this->assertEqual($result, 'c', '"G" resolves to "c".');
+    }
+}
+
 class DnaTwoTestCase extends DrupalUnitTestCase
 {
     public static function getInfo() {
